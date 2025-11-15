@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Вопросы</h2>
+
+<div class="list-group">
+    <!-- Статические вопросы с добавлением ссылок -->
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Как получить зачет в технопарке?</h5>
+        </div>
+        <p class="mb-1">Как успешно завершить проект в технопарке и получить зачет?</p>
+        <small>Теги: Технопарк, Зачет</small>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <button class="btn btn-outline-secondary btn-sm">👍 Лайк</button>
+            <span>Ответов: 5</span>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Как установить Bootstrap?</h5>
+        </div>
+        <p class="mb-1">Что нужно для правильной установки Bootstrap в проект?</p>
+        <small>Теги: CSS, Bootstrap</small>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <button class="btn btn-outline-secondary btn-sm">👍 Лайк</button>
+            <span>Ответов: 3</span>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Винда или линукс?</h5>
+        </div>
+        <p class="mb-1">Какую операционную систему выбрать для разработки: Windows или Linux?</p>
+        <small>Теги: ОС, Windows, Linux</small>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <button class="btn btn-outline-secondary btn-sm">👍 Лайк</button>
+            <span>Ответов: 8</span>
+        </div>
+    </a>
+
+    <!-- Динамически выводимые вопросы из базы данных -->
+    {% for question in questions %}
+    <a href="{% url 'question_detail' question.id %}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ question.title }}</h5>
+        <p class="mb-1">{{ question.body|truncatewords:30 }}</p>
+    </a>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+<div class="pagination">
+    <span class="step-links">
+        {% if questions.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ questions.previous_page_number }}">« Назад</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ questions.number }} из {{ questions.paginator.num_pages }}.
+        </span>
+
+        {% if questions.has_next %}
+            <a href="?page={{ questions.next_page_number }}">Вперёд »</a>
+            <a href="?page={{ questions.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}

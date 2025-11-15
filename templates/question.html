@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ question.title }}</h2>
+<p>{{ question.body }}</p>
+
+<div>
+    <p><strong>Теги:</strong> {{ question.tags }}</p>
+</div>
+
+<h4>Ответы:</h4>
+<div class="list-group">
+    {% for answer in question.answers.all %}
+    <div class="list-group-item">
+        <p>{{ answer.body }}</p>
+        <small>Ответил: {{ answer.user.username }}</small>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <button class="btn btn-outline-secondary btn-sm">👍 Лайк</button>
+            <label class="form-check-label">
+                <input type="checkbox" name="correct_answer" class="form-check-input"> Правильный ответ
+            </label>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h4>Добавить ответ:</h4>
+<form method="POST">
+    <textarea class="form-control" name="answer" rows="3"></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+</form>
+{% endblock %}
