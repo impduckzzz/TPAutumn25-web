@@ -73,7 +73,7 @@ class Question (models .Model ):
     objects =QuestionManager ()
 
     class Meta:
-        indexes=[GinIndex(SearchVector('title','text'),name='question_search_gin')]
+        indexes=[GinIndex(SearchVector('title','text',config='simple'),name='question_search_gin')]
 
     def __str__ (self )->str :
         return self .title 
@@ -91,7 +91,7 @@ class Answer (models .Model ):
     rating =models .IntegerField (default =0 ,db_index =True )
 
     def __str__ (self )->str :
-        return f"Answer
+        return f"Answer #{self.pk}"
 
 
 class QuestionLike (models .Model ):
