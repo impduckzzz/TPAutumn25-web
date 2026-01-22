@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="mb-3">Registration</h2>
+<h2 class="mb-3">Settings</h2>
 
-<form method="post" action="{% url 'signup' %}" novalidate>
+<form method="post" action="{% url 'profile_edit' %}" enctype="multipart/form-data" novalidate>
   {% csrf_token %}
 
   {% if form.non_field_errors %}
@@ -33,25 +33,20 @@
   </div>
 
   <div class="mb-3">
-    <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
-    {{ form.password1 }}
-    {% if form.password1.errors %}
+    <label class="form-label" for="{{ form.avatar.id_for_label }}">Upload avatar</label>
+    {{ form.avatar }}
+    {% if user.profile.avatar %}
+      <div class="mt-2">
+        <img src="{{ user.profile.avatar.url }}" alt="avatar" class="rounded border" style="width:96px;height:96px;object-fit:cover;">
+      </div>
+    {% endif %}
+    {% if form.avatar.errors %}
       <div class="text-danger small mt-1">
-        {% for e in form.password1.errors %}{{ e }}{% endfor %}
+        {% for e in form.avatar.errors %}{{ e }}{% endfor %}
       </div>
     {% endif %}
   </div>
 
-  <div class="mb-3">
-    <label class="form-label" for="{{ form.password2.id_for_label }}">Repeat password</label>
-    {{ form.password2 }}
-    {% if form.password2.errors %}
-      <div class="text-danger small mt-1">
-        {% for e in form.password2.errors %}{{ e }}{% endfor %}
-      </div>
-    {% endif %}
-  </div>
-
-  <button class="btn btn-primary" type="submit">Register!</button>
+  <button class="btn btn-primary" type="submit">Save</button>
 </form>
 {% endblock %}

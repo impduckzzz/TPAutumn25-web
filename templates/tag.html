@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="d-flex align-items-end gap-3 mb-3">
-  <h2 class="m-0">New Questions</h2>
-  <a class="text-decoration-none" href="{% url 'hot' %}">Hot Questions</a>
+<div class="mb-3">
+  <h2 class="m-0">Tag: {{ tag_name }}</h2>
 </div>
 
 {% for q in page_obj.object_list %}
   {% include 'includes/question_item.html' with q=q %}
+{% empty %}
+  <div class="alert alert-info">No questions for this tag yet.</div>
 {% endfor %}
 
 {% include 'includes/paginator.html' with page_obj=page_obj %}

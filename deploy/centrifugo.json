@@ -1,0 +1,7 @@
+{
+  "port": 8001,
+  "address": "127.0.0.1",
+  "anonymous": true,
+  "api_key": "dev-api-key",
+  "allowed_origins": ["*"]
+}
